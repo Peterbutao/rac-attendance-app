@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /about/
+Allow: /about/constitution
+Allow: /about/reports
+Allow: /about/11th-induction
+Allow: /projects
+Allow: /join
+Allow: /donate
+Allow: /partnerships
+
+Disallow: /portal/
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /logout
+Disallow: /login
+Disallow: /*?*
+Disallow: /*/__data.json
+
+# Host directive for Cloudflare
+Host: rotaractlilongwe.com
+
+# Sitemap
+Sitemap: https://rotaractlilongwe.com/sitemap.xml

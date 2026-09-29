@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Rotaract Club of Lilongwe</string>
+    <string name="title_activity_main">Rotaract Club of Lilongwe</string>
+    <string name="package_name">org.rotaract.lilongwe</string>
+    <string name="custom_url_scheme">org.rotaract.lilongwe</string>
+</resources>

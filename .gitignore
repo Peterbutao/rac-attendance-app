@@ -1,0 +1,60 @@
+# Node.js
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Build outputs
+dist/
+.build/
+.svelte-kit/
+build/
+public/build/
+.wrangler/
+
+# Capacitor and Android generated files
+android/.gradle/
+android/.idea/
+android/.externalNativeBuild/
+android/.cxx/
+android/**/build/
+android/local.properties
+android/**/*.iml
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor*.json
+*.apk
+*.aab
+*.aar
+*.jks
+*.keystore
+
+# SvelteKit
+.env
+.env.*
+.vite
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+
+# Local dev files
+dev-server.pid
+
+# Static assets or temporary files
+*.tmp
+*.temp
+
+
+
+dev-server.err.log
+dev-server.out.log
