@@ -10,7 +10,7 @@ const config: CapacitorConfig = {
 // therefore use the deployed SvelteKit origin unless a local bundle is
 // explicitly requested for shell-only testing.
 const useLocalBundle = process.env.CAPACITOR_LOCAL_BUILD === 'true';
-const serverUrl = (process.env.CAPACITOR_SERVER_URL?.trim() || 'https://rotaractlilongwe.com').trim();
+const serverUrl = (process.env.CAPACITOR_SERVER_URL?.trim() || 'https://rac-attendance.pages.dev').trim();
 if (!useLocalBundle && serverUrl) {
   config.server = {
     url: serverUrl,
