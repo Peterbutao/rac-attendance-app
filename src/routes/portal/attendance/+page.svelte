@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onDestroy, tick } from 'svelte';
   import { CheckCircle2, ClipboardCheck, Clock3, QrCode, UsersRound, XCircle } from 'lucide-svelte';
+  import { Capacitor } from '@capacitor/core';
+  import { Camera } from '@capacitor/camera';
   import type { BrowserQRCodeReader as BrowserQRCodeReaderType, IScannerControls } from '@zxing/browser';
 
   export let data;
@@ -100,6 +102,16 @@
     stopQrScanner();
   }
 
+  async function requestCameraAccess() {
+    if (!Capacitor.isNativePlatform()) return true;
+
+    const current = await Camera.checkPermissions();
+    if (current.camera === 'granted') return true;
+
+    const requested = await Camera.requestPermissions({ permissions: ['camera'] });
+    return requested.camera === 'granted';
+  }
+
   async function startQrScanner() {
     scannerMessage = '';
     scannerOpen = true;
@@ -109,6 +121,14 @@
     await tick();
 
     try {
+      const cameraAllowed = await requestCameraAccess();
+      if (!cameraAllowed) {
+        scannerStarting = false;
+        scannerOpen = false;
+        scannerMessage = 'Camera permission is required to scan a QR code. You can choose the item manually.';
+        return;
+      }
+
       const { BrowserCodeReader, BrowserQRCodeReader } = await import('@zxing/browser');
       releaseScannerStreams = () => BrowserCodeReader.releaseAllStreams();
       scannerReader = new BrowserQRCodeReader();
@@ -133,7 +153,7 @@
       if (session !== scannerSession) return;
       scannerStarting = false;
       scannerMessage = error instanceof DOMException && error.name === 'NotAllowedError'
-        ? 'Camera access was blocked. Choose the item manually instead.'
+        ? 'Camera access was blocked. Allow camera access in Android settings, then try again.'
         : 'QR scanning is unavailable on this device. Choose the item manually instead.';
     }
   }

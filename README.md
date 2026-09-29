@@ -91,7 +91,7 @@ npm run cap:open:android
 The release APK uses the deployed SvelteKit site by default because the portal uses server loads and actions for authentication and data changes. To use a different deployment:
 
 ```powershell
-$env:CAPACITOR_SERVER_URL = 'https://rotaractlilongwe.com'
+$env:CAPACITOR_SERVER_URL = 'https://rac-attendance.pages.dev'
 npm run cap:android
 ```
 

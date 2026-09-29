@@ -1,5 +1,5 @@
-<script lang="ts">
-  import { CalendarDays, ClipboardCheck, UserRound, ArrowUpRight } from 'lucide-svelte';
+﻿<script lang="ts">
+  import { CalendarDays, ClipboardCheck, UserRound, Clock3, ArrowUpRight } from 'lucide-svelte';
   import MemberProfileCard from '$lib/components/MemberProfileCard.svelte';
 
   export let data;
@@ -25,6 +25,43 @@
         </div>
       {/if}
     </section>
+    {#if data.member}
+      <div class="dashboard-columns">
+        <MemberProfileCard member={data.member} summary={data.profileSummary} />
+
+        <aside class="dashboard-aside">
+          <section class="guest-card">
+            <div class="guest-card__top">
+              <span class="eyebrow">Your impact</span>
+              <span class="guest-card__icon"><UserRound size={18} /></span>
+            </div>
+            <div class="impact-metrics">
+              <div class="impact-metric">
+                <strong>{data.guestCount ?? 0}</strong>
+                <h3>Guests invited</h3>
+              </div>
+              <div class="impact-metric">
+                <!-- <span class="impact-metric__icon"><Clock3 size={15} /></span> -->
+                <strong>{data.profileSummary?.volunteer_hours ?? 0}</strong>
+                <h3>Total volunteer hours</h3>
+              </div>
+            </div>
+            <p>Approved guest invitations connected to your attendance submissions.</p>
+            <a href="/portal/attendance">Invite a guest <ArrowUpRight size={15} /></a>
+          </section>
+
+          <section class="dashboard-note">
+            <span class="dashboard-note__mark">i</span>
+            <div>
+              <strong>Keep your record current</strong>
+              <p>Submit attendance soon after each event so it can be reviewed promptly.</p>
+            </div>
+          </section>
+        </aside>
+      </div>
+    {:else}
+      <div class="empty-dashboard">Your member profile is not available yet. Please contact the admin team.</div>
+    {/if}
 
     <section class="quick-actions" aria-label="Quick actions">
       <a href="/portal/events" class="quick-action quick-action--pink">
@@ -44,34 +81,6 @@
       </a>
     </section>
 
-    {#if data.member}
-      <div class="dashboard-columns">
-        <MemberProfileCard member={data.member} summary={data.profileSummary} />
-
-        <aside class="dashboard-aside">
-          <section class="guest-card">
-            <div class="guest-card__top">
-              <span class="eyebrow">Your impact</span>
-              <span class="guest-card__icon"><UserRound size={18} /></span>
-            </div>
-            <strong>{data.guestCount ?? 0}</strong>
-            <h3>Guests invited</h3>
-            <p>Approved guest invitations connected to your attendance submissions.</p>
-            <a href="/portal/attendance">Invite a guest <ArrowUpRight size={15} /></a>
-          </section>
-
-          <section class="dashboard-note">
-            <span class="dashboard-note__mark">i</span>
-            <div>
-              <strong>Keep your record current</strong>
-              <p>Submit attendance soon after each event so it can be reviewed promptly.</p>
-            </div>
-          </section>
-        </aside>
-      </div>
-    {:else}
-      <div class="empty-dashboard">Your member profile is not available yet. Please contact the admin team.</div>
-    {/if}
   </div>
 </div>
 
@@ -103,8 +112,11 @@
   .guest-card__top { display: flex; align-items: center; justify-content: space-between; }
   .guest-card .eyebrow { color: #ff86a8; }
   .guest-card__icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255,255,255,.1); color: #ff86a8; }
-  .guest-card > strong { display: block; margin-top: 22px; color: #fff; font-size: 3.1rem; line-height: 1; letter-spacing: -.06em; }
-  .guest-card h3 { margin: 8px 0 5px; font-size: 1rem; }
+  .impact-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+  .impact-metric { min-width: 0; }
+  .impact-metric strong { display: block; color: #fff; font-size: 2.2rem; line-height: 1; letter-spacing: -.06em; }
+  .impact-metric h3 { margin: 8px 0 5px; font-size: .78rem; line-height: 1.25; }
+  .impact-metric__icon { display: inline-grid; place-items: center; width: 26px; height: 26px; margin-bottom: 9px; border-radius: 8px; background: rgba(255,255,255,.1); color: #ff86a8; }
   .guest-card p { color: rgba(255,255,255,.58); font-size: .75rem; line-height: 1.55; }
   .guest-card a { display: inline-flex; align-items: center; gap: 5px; margin-top: 20px; color: #ff86a8; font-size: .75rem; font-weight: 800; text-decoration: none; }
   .dashboard-note { display: flex; gap: 11px; padding: 16px; border: 1px solid #e5eaf1; border-radius: 14px; background: #fff; }

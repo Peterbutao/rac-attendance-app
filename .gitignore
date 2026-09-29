@@ -11,6 +11,7 @@ dist/
 build/
 public/build/
 .wrangler/
+.npm-cache/
 
 # Capacitor and Android generated files
 android/.gradle/
